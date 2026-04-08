@@ -11,6 +11,8 @@ import { useLanguage } from './i18n/LanguageContext';
 import './App.css';
 
 const CONTINENT_ORDER = ['north-america', 'south-america', 'europe', 'asia', 'oceania', 'others'];
+const TRACK_WIDTH = 4032; // 14 days * 24 hours * 12px per hour
+const TOTAL_MINUTES = 20160; // 14 days * 1440 minutes
 
 const CONTINENT_COLORS = {
   'north-america': '#ff4d4d', // Vibrant Red
@@ -168,7 +170,7 @@ function App() {
   
   useEffect(() => {
     // Current minutes to X position: (minutes / totalMinutes) * -trackWidth
-    const newX = (minutesOffset / 20159) * -2800;
+    const newX = (minutesOffset / TOTAL_MINUTES) * -TRACK_WIDTH;
     x.set(newX);
   }, [minutesOffset]);
 
@@ -311,13 +313,13 @@ function App() {
               <motion.div 
                 className="timeline-scroll-wrapper"
                 drag="x"
-                dragConstraints={{ left: -2800, right: 0 }}
+                dragConstraints={{ left: -TRACK_WIDTH, right: 0 }}
                 style={{ x }}
                 onDrag={(event, info) => {
                   const currentX = x.get();
-                  const percentage = Math.abs(currentX / 2800);
-                  const newOffset = Math.round((percentage * 20159) / 10) * 10;
-                  if (newOffset >= 0 && newOffset <= 20159) {
+                  const percentage = Math.abs(currentX / TRACK_WIDTH);
+                  const newOffset = Math.round((percentage * TOTAL_MINUTES) / 10) * 10;
+                  if (newOffset >= 0 && newOffset <= TOTAL_MINUTES) {
                     setMinutesOffset(newOffset);
                   }
                 }}
@@ -358,7 +360,7 @@ function App() {
               <input 
                 type="range" 
                 min="0" 
-                max={20159} 
+                max={TOTAL_MINUTES} 
                 step="10"
                 value={minutesOffset} 
                 onChange={(e) => setMinutesOffset(parseInt(e.target.value))}

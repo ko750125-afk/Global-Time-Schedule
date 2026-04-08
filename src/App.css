@@ -145,7 +145,7 @@
 .timeline-scroll-wrapper {
   display: flex;
   flex-direction: column;
-  width: 2800px;
+  width: 4032px; /* 14 days * 288px */
   height: 100%;
   cursor: grab;
   padding-left: 50%; /* Center the start point */
@@ -161,7 +161,7 @@
 }
 
 .day-label-group {
-  width: 200px; /* 2800 / 14 days */
+  width: 288px; /* 4032 / 14 days */
   text-align: center;
 }
 
@@ -195,7 +195,7 @@
 }
 
 .timeline-day-block {
-  width: 200px;
+  width: 288px;
   height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -292,6 +292,26 @@
     rgba(255, 240, 200, 0.3) 50%, 
     rgba(255, 255, 255, 0.1) 100%
   );
+}
+
+.global-day-theme .tick {
+    border-left-color: rgba(0, 0, 0, 0.2);
+}
+
+.global-day-theme .tick.major {
+    border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+.global-day-theme .tick-label {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.global-day-theme .day-title {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.global-day-theme .day-title.today {
+    color: var(--accent-color);
 }
 
 /* Mobile Responsiveness */
