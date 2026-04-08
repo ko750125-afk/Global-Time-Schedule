@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { formatInTimeZone } from 'date-fns-tz';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
 import { Globe, Plus, Trash2, RotateCcw, Clock, Sun, Moon, Info, GripHorizontal } from 'lucide-react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
@@ -164,7 +164,7 @@ function App() {
   };
 
   // Motion value for timeline synchronization
-  const x = motion.useMotionValue(0);
+  const x = useMotionValue(0);
   
   useEffect(() => {
     // Current minutes to X position: (minutes / totalMinutes) * -trackWidth
