@@ -116,6 +116,15 @@ function App() {
     return baseHour24 >= 6 && baseHour24 < 18;
   }, [baseDate, baseCity]);
 
+  // Force sorting by time (west to east chronologically)
+  const sortedCities = useMemo(() => {
+    return [...cities].sort((a, b) => {
+      const offsetA = parseInt(formatInTimeZone(new Date(), a.timezone, 'xxxx'), 10);
+      const offsetB = parseInt(formatInTimeZone(new Date(), b.timezone, 'xxxx'), 10);
+      return offsetA - offsetB;
+    });
+  }, [cities]);
+
   // Global Theme Sync
   useEffect(() => {
     if (isBaseDayTime) {
@@ -238,11 +247,11 @@ function App() {
             onDragEnd={handleDragEnd}
           >
             <SortableContext 
-              items={cities.map(c => c.id)}
+              items={sortedCities.map(c => c.id)}
               strategy={rectSortingStrategy}
             >
               <AnimatePresence mode="popLayout">
-                {cities.map((city, index) => (
+                {sortedCities.map((city, index) => (
                   <SortableCityCard 
                     key={city.id} 
                     city={city} 
@@ -437,14 +446,6 @@ function SortableCityCard({ city, baseDate, onRemove, onSetBase, isBase, index, 
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-          <div 
-            {...attributes}
-            {...listeners}
-            className="drag-handle"
-            style={{ color: 'var(--text-secondary)', cursor: 'grab', padding: '2px', display: 'flex', opacity: 0.5 }}
-          >
-            <GripHorizontal size={18} />
-          </div>
           <button 
             onClick={onSetBase}
             style={{ 
