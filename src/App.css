@@ -1,0 +1,157 @@
+/* ===== App.jsx 전용 스타일 ===== */
+
+/* 대륙 레전드 바 */
+.continent-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-name {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Golden Time 섹션 */
+.golden-time-section {
+  padding: 1.2rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.glow-icon {
+  filter: drop-shadow(0 0 5px var(--accent-color));
+}
+
+/* 추천 시간 슬롯 */
+.slots-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.slot-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.slot-pill:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.slot-time {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.slot-info {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+/* Drag and Drop Styles */
+.city-card {
+  touch-action: none;
+}
+.city-card.dragging {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(88, 166, 255, 0.4);
+  transform: scale(1.02);
+  filter: brightness(1.1);
+  z-index: 10 !important;
+}
+.drag-handle {
+  transition: 0.2s;
+}
+.drag-handle:hover {
+  opacity: 1 !important;
+  color: var(--text-primary) !important;
+}
+
+/* Day/Night Theme Dynamics */
+.city-card.theme-day {
+  background: rgba(245, 240, 230, 0.95) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+.city-card.theme-day h3 {
+  color: #111 !important;
+}
+.city-card.theme-day .time-text {
+  color: #111 !important;
+}
+.city-card.theme-day .drag-handle,
+.city-card.theme-day .ampm-text,
+.city-card.theme-day p,
+.city-card.theme-day .date-str-text {
+  color: #444 !important;
+}
+
+.city-card.theme-night {
+  background: rgba(10, 10, 25, 0.5) !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+  header h1 {
+    font-size: 1.8rem !important;
+  }
+  header p {
+    font-size: 0.9rem;
+  }
+  header {
+    margin-bottom: 1.5rem !important;
+  }
+  .cities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+  footer {
+    padding: 1rem !important;
+  }
+  .base-time-display {
+    font-size: 0.9rem !important;
+  }
+}

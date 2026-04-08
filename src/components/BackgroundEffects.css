@@ -1,0 +1,215 @@
+.bg-effects-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1; /* Always behind the app container */
+  overflow: hidden;
+}
+
+/* =========================================
+   DAY EFFECTS (Clouds & Sun Glow)
+   ========================================= */
+.day-effects {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.sun-glow {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 60vh;
+  height: 60vh;
+  background: radial-gradient(circle, rgba(253, 230, 138, 0.5) 0%, transparent 60%);
+  border-radius: 50%;
+  animation: pulseGlow 8s infinite alternate;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  filter: blur(1px); /* 구름 테두리를 훨씬 선명하게 */
+  animation: drift linear infinite;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* 구름 입체감 강화 */
+}
+
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  top: 15%;
+  height: 40px;
+  width: 120px;
+  animation-duration: 60s;
+  animation-delay: -10s;
+}
+.cloud-1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+.cloud-1::after { width: 60px; height: 60px; top: -35px; right: 15px; }
+
+.cloud-2 {
+  top: 35%;
+  height: 30px;
+  width: 100px;
+  opacity: 0.95;
+  animation-duration: 45s;
+  animation-delay: -10s;
+  transform: scale(0.8);
+}
+.cloud-2::before { width: 40px; height: 40px; top: -20px; left: 10px; }
+.cloud-2::after { width: 50px; height: 50px; top: -25px; right: 10px; }
+
+.cloud-3 {
+  top: 65%;
+  height: 50px;
+  width: 150px;
+  opacity: 0.85;
+  animation-duration: 70s;
+  animation-delay: -5s;
+  transform: scale(1.2);
+}
+.cloud-3::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+.cloud-3::after { width: 70px; height: 70px; top: -40px; right: 20px; }
+
+.cloud-4 {
+  top: 25%;
+  height: 35px;
+  width: 110px;
+  opacity: 0.7;
+  animation-duration: 55s;
+  animation-delay: -35s;
+  transform: scale(0.7);
+}
+.cloud-4::before { width: 45px; height: 45px; top: -22px; left: 12px; }
+.cloud-4::after { width: 55px; height: 55px; top: -30px; right: 12px; }
+
+.cloud-5 {
+  top: 75%;
+  height: 45px;
+  width: 130px;
+  opacity: 0.9;
+  animation-duration: 80s;
+  animation-delay: -50s;
+  transform: scale(1.1);
+}
+.cloud-5::before { width: 55px; height: 55px; top: -28px; left: 18px; }
+.cloud-5::after { width: 65px; height: 65px; top: -35px; right: 18px; }
+
+@keyframes drift {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(120vw); }
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* =========================================
+   NIGHT EFFECTS (Stars, Moon Glow, Shooting Stars)
+   ========================================= */
+.night-effects {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.moon-glow {
+  position: absolute;
+  top: -5%;
+  right: -5%;
+  width: 50vh;
+  height: 50vh;
+  background: radial-gradient(circle, rgba(160, 180, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulseGlow 10s infinite alternate;
+}
+
+/* Static but twinkling star field generated via box-shadow */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+}
+
+/* Create a large field of stars */
+.twinkling {
+  box-shadow: 
+    10vw 20vh #fff, 30vw 10vh #fff, 50vw 40vh #fff, 70vw 20vh #fff, 90vw 5vh #fff,
+    20vw 60vh #fff, 40vw 80vh #fff, 60vw 60vh #fff, 80vw 90vh #fff, 15vw 90vh #fff,
+    85vw 50vh #fff, 5vw 30vh #fff, 45vw 15vh #fff, 75vw 65vh #fff, 95vw 85vh #fff;
+  animation: twinkle 4s infinite ease-in-out alternate;
+}
+
+.twinkling-slow {
+  box-shadow: 
+    15vw 15vh #fff, 35vw 35vh #fff, 55vw 5vh #fff, 75vw 35vh #fff, 95vw 15vh #fff,
+    5vw 70vh #fff, 25vw 50vh #fff, 45vw 90vh #fff, 65vw 75vh #fff, 85vw 25vh #fff;
+  animation: twinkle 6s infinite ease-in-out alternate-reverse;
+  opacity: 0.5;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Shooting Stars */
+.shooting-star {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  transform: rotate(-45deg);
+  opacity: 0;
+  animation: shooting 12s infinite;
+}
+
+.shooting-star.delay-1 {
+  top: 30%;
+  left: 80%;
+  animation-delay: 5s;
+  animation-duration: 15s;
+}
+
+@keyframes shooting {
+  0% {
+    transform: rotate(-45deg) translateX(-100px);
+    opacity: 1;
+  }
+  10% {
+    transform: rotate(-45deg) translateX(-500px);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(-45deg) translateX(-500px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+.airplane { position: absolute; top: 15%; font-size: 2rem; opacity: 0.8; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); animation: fly-left 60s linear infinite; z-index: 10; transform: scaleX(-1); }
+
+@keyframes fly-left { 0% { left: 120vw; transform: scaleX(-1) translateY(0); } 50% { left: 50vw; transform: scaleX(-1) translateY(-15px); } 100% { left: -20vw; transform: scaleX(-1) translateY(0); } }

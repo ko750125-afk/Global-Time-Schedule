@@ -1,0 +1,382 @@
+/* ===== AddCityDialog 스타일 ===== */
+
+/* 대륙 선택 칩 */
+.continent-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.continent-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.continent-chip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.continent-chip.active {
+  background: #64c8ff;
+  color: #000;
+  border-color: #64c8ff;
+  font-weight: 600;
+}
+
+/* 모달 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* 검색 바 */
+.search-bar-container {
+  padding: 16px 24px 0;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-icon {
+  color: #64c8ff;
+  opacity: 0.6;
+}
+
+.search-input-wrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  outline: none;
+  font-size: 0.9rem;
+  padding: 4px 0;
+}
+
+.clear-search {
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+}
+
+/* 검색 결과 아이템 정보 */
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-sub-info {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 검색 결과 없음 */
+.no-results {
+  text-align: center;
+  padding: 40px 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.manual-link {
+  background: none;
+  border: none;
+  color: #64c8ff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+/* 모달 헤더 */
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.back-btn,
+.close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.back-btn:hover,
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* 모달 바디 */
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* 선택 그리드 (대륙 선택) */
+.selection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.select-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: left;
+}
+
+.select-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.continent-icon {
+  font-size: 1.4rem;
+}
+
+.item-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+/* 수동 입력 트리거 */
+.manual-trigger {
+  margin-top: 8px;
+  border-style: dashed;
+  background: transparent;
+  color: #888;
+}
+
+.manual-trigger:hover {
+  color: #64c8ff;
+  border-color: #64c8ff;
+}
+
+/* 선택 리스트 (국가/도시) */
+.selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.select-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.select-list-item:hover {
+  background: rgba(100, 200, 255, 0.1);
+  border-color: rgba(100, 200, 255, 0.2);
+}
+
+.add-icon {
+  color: #64c8ff;
+}
+
+/* 수동 입력 폼 */
+.manual-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-preview {
+  background: rgba(100, 200, 255, 0.1);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.preview-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #64c8ff;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.preview-time {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.preview-time.error {
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  line-height: 1.4;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.label-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.local-tz-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.local-tz-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.form-group input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #64c8ff;
+  background: rgba(100, 200, 255, 0.05);
+}
+
+.tz-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: #666;
+  padding: 0 4px;
+}
+
+.tz-info strong {
+  color: #64c8ff;
+  font-weight: 600;
+}
+
+/* 제출 버튼 */
+.submit-btn {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #64c8ff, #3a8dff);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(100, 200, 255, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Meeting Calculator | 글로벌 미팅 계산기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="icon">🌐</span>
+                <h1>Global Meeting <span>Calculator</span></h1>
+            </div>
+            <p class="subtitle">해외 직원들과의 완벽한 미팅 시간을 찾아보세요.</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="search-bar">
+                    <input type="text" id="city-search" placeholder="도시 또는 나라 검색 (예: London, Tokyo)...">
+                    <button id="add-city-btn">추가</button>
+                </div>
+                <div class="quick-tags">
+                    <span>인기 도시:</span>
+                    <button class="tag" data-city="Seoul">서울</button>
+                    <button class="tag" data-city="New York">뉴욕</button>
+                    <button class="tag" data-city="London">런던</button>
+                    <button class="tag" data-city="Singapore">싱가포르</button>
+                </div>
+            </section>
+
+            <section id="city-grid" class="city-grid">
+                <!-- City cards will be injected here -->
+            </section>
+        </main>
+
+        <footer>
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span id="current-reference-time">2026. 04. 08. 오전 05:46 (KST)</span>
+                    <button id="reset-time-btn">현재 시간으로 리셋</button>
+                </div>
+                <input type="range" id="time-slider" min="0" max="1439" value="346">
+                <div class="slider-labels">
+                    <span>어제</span>
+                    <span>오늘</span>
+                    <span>내일</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

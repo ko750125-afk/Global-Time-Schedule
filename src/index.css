@@ -1,0 +1,84 @@
+:root {
+  --bg-color: #0d1117;
+  --card-bg: rgba(22, 27, 34, 0.7);
+  --accent-color: #58a6ff;
+  --secondary-color: #bc8cf2;
+  --success-color: #3fb950;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --neon-glow: 0 0 15px rgba(88, 166, 255, 0.3);
+  --font-main: 'Outfit', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(88, 166, 255, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(188, 140, 242, 0.05) 0px, transparent 50%);
+  color: var(--text-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+body.global-day-theme {
+  --bg-color: #dbeafe; /* 연한 하늘색 배경 */
+  --card-bg: rgba(255, 255, 255, 0.5);
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --glass-border: rgba(0, 0, 0, 0.1);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.6) 0px, transparent 60%),
+    radial-gradient(at 100% 100%, rgba(253, 230, 138, 0.3) 0px, transparent 50%); /* 은은한 햇빛 */
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 2px solid #000 !important;
+}
+
+.glow-text {
+  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.city-card { border: 2px solid #000 !important; }
+body.global-day-theme .city-card { border: 2px solid #000 !important; }
