@@ -100,12 +100,13 @@ function App() {
     const dateFormatter = new Intl.DateTimeFormat(language, { month: 'short', day: 'numeric' });
     const dayFormatter = new Intl.DateTimeFormat(language, { weekday: 'short' });
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 14; i++) { // Extend to 14 days
         const d = new Date(midnightDate.getTime() + i * 86400000); // add days
         days.push({
             dateStr: dateFormatter.format(d),
             dayStr: dayFormatter.format(d),
             isToday: i === 0,
+            fullDate: d
         });
     }
     return days;
@@ -161,6 +162,15 @@ function App() {
       });
     }
   };
+
+  // Motion value for timeline synchronization
+  const x = motion.useMotionValue(0);
+  
+  useEffect(() => {
+    // Current minutes to X position: (minutes / totalMinutes) * -trackWidth
+    const newX = (minutesOffset / 20159) * -2800;
+    x.set(newX);
+  }, [minutesOffset]);
 
   return (
     <>
@@ -296,51 +306,65 @@ function App() {
             </button>
           </div>
           
-          <div className="custom-timeline-container" style={{ position: 'relative', width: '100%', height: '50px', marginTop: '10px' }}>
-            <div className="timeline-track" style={{ display: 'flex', width: '100%', height: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
-              {timelineDays.map((day, idx) => (
-                <div key={idx} className="timeline-day-block" style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: idx < 6 ? '1px solid rgba(150, 150, 150, 0.2)' : 'none' }}>
-                  <div style={{ flex: 1, background: 'rgba(200, 200, 200, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.8rem', fontWeight: day.isToday ? 700 : 500, color: day.isToday ? 'var(--accent-color)' : 'var(--text-secondary)' }}>
-                    {day.isToday ? t('today') : `${day.dateStr} (${day.dayStr})`}
-                  </div>
-                  <div style={{ flex: 1, display: 'flex' }}>
-                    <div className="timeline-am" style={{ flex: 1, background: 'linear-gradient(to bottom, rgba(230,240,255,0.8), rgba(255,245,210,0.8))', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <Sun size={12} color="#f39c12" />
+          <div className="premium-timeline-outer glass">
+            <div className="custom-timeline-container">
+              <motion.div 
+                className="timeline-scroll-wrapper"
+                drag="x"
+                dragConstraints={{ left: -2800, right: 0 }}
+                style={{ x }}
+                onDrag={(event, info) => {
+                  const currentX = x.get();
+                  const percentage = Math.abs(currentX / 2800);
+                  const newOffset = Math.round((percentage * 20159) / 10) * 10;
+                  if (newOffset >= 0 && newOffset <= 20159) {
+                    setMinutesOffset(newOffset);
+                  }
+                }}
+              >
+                {/* Labels and Ticks move together */}
+                <div className="timeline-labels-inner">
+                  {timelineDays.map((day, dIdx) => (
+                    <div key={dIdx} className="day-label-group">
+                      <span className={`day-title ${day.isToday ? 'today' : ''}`}>{day.dateStr}</span>
                     </div>
-                    <div className="timeline-pm" style={{ flex: 1, background: 'linear-gradient(to bottom, rgba(20,30,50,0.8), rgba(60,40,80,0.8))', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <Moon size={12} color="#a0b4ff" />
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            
-            <input 
-              type="range" 
-              min="0" 
-              max={10079} 
-              step="10"
-              value={minutesOffset} 
-              onChange={(e) => setMinutesOffset(parseInt(e.target.value))}
-              className="timeline-slider"
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer', zIndex: 10 }}
-            />
+                
+                <div className="timeline-scroll-track">
+                  {timelineDays.map((day, idx) => (
+                    <div key={idx} className="timeline-day-block">
+                      <div className="time-ticks">
+                        {[...Array(24)].map((_, h) => (
+                          <div key={h} className={`tick ${h % 6 === 0 ? 'major' : ''}`}>
+                            {h % 6 === 0 && <span className="tick-label">{h}h</span>}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+              
+              {/* Fixed Glass Indicator */}
+              <div className="fixed-time-indicator">
+                <div className="indicator-line"></div>
+                <div className="indicator-glass-card">
+                  <span className="current-time-tooltip">{formatInTimeZone(baseDate, baseCity.timezone, 'HH:mm')}</span>
+                </div>
+              </div>
 
-            {/* Custom Thumb logic - position calculated independently by the native input, but we can draw a custom thumb pointer if we want. Actually, it's simpler to just un-hide the slider thumb via CSS */}
-            <div 
-              className="timeline-thumb-indicator"
-              style={{
-                position: 'absolute',
-                top: '-5px',
-                bottom: '-5px',
-                width: '4px',
-                background: 'var(--accent-color)',
-                left: `calc(${(minutesOffset / 10079) * 100}% - 2px)`,
-                borderRadius: '2px',
-                pointerEvents: 'none',
-                boxShadow: '0 0 10px var(--accent-color)'
-              }}
-            ></div>
+              {/* Keep the native range hidden but synced for ARIA/Accessibility */}
+              <input 
+                type="range" 
+                min="0" 
+                max={20159} 
+                step="10"
+                value={minutesOffset} 
+                onChange={(e) => setMinutesOffset(parseInt(e.target.value))}
+                className="timeline-slider-hidden"
+              />
+            </div>
           </div>
         </div>
       </footer>
