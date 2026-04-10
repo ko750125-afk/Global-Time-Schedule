@@ -338,8 +338,8 @@ function App() {
                     <div key={idx} className="timeline-day-block">
                       <div className="time-ticks">
                         {[...Array(24)].map((_, h) => (
-                          <div key={h} className={`tick ${h % 6 === 0 ? 'major' : ''}`}>
-                            {h % 6 === 0 && <span className="tick-label">{h}h</span>}
+                          <div key={h} className={`tick ${h === 0 ? 'boundary' : (h % 6 === 0 ? 'major' : '')}`}>
+                            {h !== 0 && h % 6 === 0 && <span className="tick-label">{h}h</span>}
                           </div>
                         ))}
                       </div>
