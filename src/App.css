@@ -227,6 +227,12 @@
   border-left: 2px solid rgba(255, 255, 255, 0.4);
 }
 
+.tick.boundary {
+  height: 100%;
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+
 .tick-label {
   position: absolute;
   top: -25px;
@@ -300,6 +306,10 @@
 
 .global-day-theme .tick.major {
     border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+.global-day-theme .tick.boundary {
+    border-left-color: rgba(0, 0, 0, 0.7);
 }
 
 .global-day-theme .tick-label {
